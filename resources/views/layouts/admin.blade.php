@@ -97,13 +97,13 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingTwo">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                        <i class="fas fa-user-lock me-3"></i>Roles & Permission
+                        <i class="fa-solid fa-plane me-3"></i>Aeroplane Models
                     </button>
                 </h2>
                 <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body">
                         <ul class="list-unstyled folders">
-                            <li><a href="#" title="Admins">Create Roles & Permission</a> </li>
+                            <li><a href="{{route('planes.index')}}" title="Admins">Create Models</a> </li>
 
                         </ul>
                     </div>
@@ -112,13 +112,13 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingSeven">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
-                        <i class="fas fa-code-branch me-2"></i>Professions
+                        <i class="fa-solid fa-ticket me-3"></i>Airlines
                     </button>
                 </h2>
                 <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-collapseSeven" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body">
                         <ul class="list-unstyled folders">
-                            <li><a href="#" title="Admins">Create Professions</a> </li>
+                            <li><a href="{{route('airline.index')}}" title="Admins">Manage Airlines</a> </li>
 
                         </ul>
 
@@ -132,13 +132,17 @@
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                             data-bs-target="#flush-collapseThirty" aria-expanded="false"
                             aria-controls="flush-collapseSeven">
-                        <i class="fa-solid fa-industry me-2"></i>Industry
+                            <i class="fa-solid fa-bag-shopping me-3"></i>Trips
                     </button>
                 </h2>
                 <div id="flush-collapseThirty" class="accordion-collapse collapse" aria-labelledby="flush-collapseSeven" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body">
                         <ul class="list-unstyled folders">
-                            <li><a href="#" title="Admins">Add Industries</a> </li>
+                            <li><a href="{{route('journey.index')}}" title="Admins">All Trips</a> </li>
+
+                        </ul>
+                        <ul class="list-unstyled folders">
+                            <li><a href="{{route('journey.create')}}" title="Admins">Create Trips</a> </li>
 
                         </ul>
 

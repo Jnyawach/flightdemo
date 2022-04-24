@@ -100,7 +100,7 @@ input[type=text]:focus,input[type=email]:focus, select:focus{
     box-shadow: none !important;
     border: 1px solid var(--primary) !important;
     outline: none !important;
-    
+
 }
 input[type=checkbox]{
     border-radius: 0px !important;
@@ -124,7 +124,7 @@ select{
     font-weight: 600 !important;
     color: var(--dark) !important;
     border: 1px solid var(--primary) !important;
-    
+
 
 }
 input::-webkit-calendar-picker-indicator {
@@ -134,7 +134,7 @@ select:disabled{
     border: 1px solid var(--secondary) !important;
 }
 option{
-    
+
     font-family: 16px !important;
     font-weight: 600;
 }
@@ -142,7 +142,7 @@ option{
     font-size: 18px !important;
     font-weight: 600 !important;
     color: var(--dark) !important;
-    
+
 }
 
 .pagination{
@@ -223,7 +223,7 @@ option{
 }
 
 .search{
-   
+
 }
 .stops th h5{
     color: var(--junior);
@@ -237,4 +237,7 @@ hr{
 }
 .flight-active{
     background-color: var(--teal);
+}
+.display-none{
+    display: none ;
 }

@@ -1,7 +1,12 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminAirportController;
+
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\Admin\AdminAirlineController;
+use App\Http\Controllers\Admin\AdminPlaneController;
+use App\Http\Controllers\Admin\AdminAirportController;
+use App\Http\Controllers\Admin\AdminJourneyController;
 use App\Http\Controllers\Admin\AdminController;
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +24,9 @@ Route::get('/', function () {
 });
 
 Route::group([], function(){
+    Route::resource('admin/journey',AdminJourneyController::class);
+    Route::resource('admin/airline',AdminAirlineController::class);
+    Route::resource('admin/planes',AdminPlaneController::class);
     Route::resource('admin/airports',AdminAirportController::class);
     Route::resource('admin',AdminController::class);
 });
