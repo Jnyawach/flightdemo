@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Stop extends Model
 {
     use HasFactory;
+
+    public function journeys(){
+        return $this->hasMany(Journey::class);
+    }
 }

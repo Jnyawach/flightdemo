@@ -13,17 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('capacities', function (Blueprint $table) {
+        Schema::create('bags', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('name');
             $table->bigInteger('journey_id')->unsigned()->index();
-            $table->bigInteger('level_id')->unsigned()->index();
-            $table->integer('capacity')->default(0);
-            $table->decimal('price')->default(0);
-
             $table->foreign('journey_id')->references('id')->on('journeys')
             ->onDeleteCascade();
-
         });
     }
 
@@ -34,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('capacities');
+        Schema::dropIfExists('bags');
     }
 };

@@ -88,7 +88,8 @@ label{
     font-weight: 600;
     font-size: 14px;
 }
-input[type=text],input[type=email],input[type=date]{
+input[type=text],input[type=email],input[type=date],
+input[type=datetime-local]{
     border-radius: 5px!important;
     height: 45px;
     font-size: 18px !important;
@@ -96,7 +97,7 @@ input[type=text],input[type=email],input[type=date]{
     color: var(--dark) !important;
     border: 1px solid var(--primary) !important;
 }
-input[type=text]:focus,input[type=email]:focus, select:focus{
+input[type=text]:focus,input[type=email]:focus, select:focus,input[type=datetime-local]:focus{
     box-shadow: none !important;
     border: 1px solid var(--primary) !important;
     outline: none !important;
@@ -117,6 +118,14 @@ input[type=checkbox]:focus{
 input[type=checkbox]::after{
     border: 1px solid var(--primary) !important;
 }
+input[type=radio]{
+    border: 1px solid black;
+}
+input[type=radio]:checked{
+    border: 1px solid var(--primary);
+    background-color: var(--primary) !important;
+    box-shadow: none;
+}
 select{
     background-color: white !important;
     height: 45px;
@@ -127,9 +136,7 @@ select{
 
 
 }
-input::-webkit-calendar-picker-indicator {
-    display: none !important;
-  }
+
 select:disabled{
     border: 1px solid var(--secondary) !important;
 }
@@ -240,4 +247,31 @@ hr{
 }
 .display-none{
     display: none ;
+}
+.error{
+    color: red;
+    font-weight: 600;
+}
+.pagination{
+    background: none !important;
+}
+.page-link{
+
+    border:1px solid var(--primary) !important;
+    color: var(--primary) !important;
+    font-weight: 700;
+    font-size: 18px;
+    margin: 4px;
+    border-radius: 3px;
+    width: 40px;
+}
+.page-item .active-page{
+    background-color: var(--primary) !important;
+    color: white !important;
+
+}
+.active-page:hover,.page-link:hover{
+    color: white !important;
+    background-color: var(--junior)!important;
+    border:1px solid var(--junior)
 }

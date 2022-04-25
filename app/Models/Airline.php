@@ -21,4 +21,8 @@ class Airline extends Model implements HasMedia
             ->height(40);
 
     }
+
+    public function journeys(){
+        return $this->hasMany(Journey::class);
+    }
 }

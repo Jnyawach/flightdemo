@@ -18,25 +18,20 @@ return new class extends Migration
             $table->timestamps();
             $table->bigInteger('from_id')->unsigned()->index();
             $table->bigInteger('to_id')->unsigned()->index();
-            $table->bigInteger('level_id')->unsigned()->index();
             $table->bigInteger('airline_id')->unsigned()->index();
             $table->bigInteger('stop_id')->unsigned()->index();
-            $table->integer('baggage_fee')->default(0);
-            $table->integer('cancellation_fee')->default();
-            $table->date('departure_date');
-            $table->date('arrival_date');
-            $table->time('departure_time');
-            $table->time('arrival_time');
-            $table->integer('price');
-            $table->integer('capacity');
+            $table->decimal('baggage_fee')->default(0)->nullable();
+            $table->decimal('cancellation_fee')->default(0)->nullable();
+            $table->dateTime('departure');
+            $table->dateTime('arrival');
+
 
 
             $table->foreign('from_id')->references('id')->on('airports')
             ->onDeleteCascade();
             $table->foreign('to_id')->references('id')->on('airports')
             ->onDeleteCascade();
-            $table->foreign('level_id')->references('id')->on('levels')
-            ->onDeleteCascade();
+
         });
     }
 

@@ -50,6 +50,8 @@ class AdminJourneyController extends Controller
     public function show($id)
     {
         //
+        $journey=Journey::findOrFail($id);
+        return view('admin.journey.show', compact('journey'));
     }
 
     /**
@@ -61,6 +63,8 @@ class AdminJourneyController extends Controller
     public function edit($id)
     {
         //
+        $journey=Journey::findOrFail($id);
+        return view('admin.journey.edit', compact('journey'));
     }
 
     /**
@@ -73,6 +77,7 @@ class AdminJourneyController extends Controller
     public function update(Request $request, $id)
     {
         //
+
     }
 
     /**
@@ -84,5 +89,9 @@ class AdminJourneyController extends Controller
     public function destroy($id)
     {
         //
+        $journey=Journey::findOrFail($id);
+        $journey->delete();
+        return redirect()->back()
+        ->with('status','Trip deleted successfully');
     }
 }

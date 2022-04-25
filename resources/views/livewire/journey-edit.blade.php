@@ -1,5 +1,5 @@
 <div class="mt-5">
-    <form wire:submit.prevent="createTrip">
+    <form wire:submit.prevent="updateTrip">
 
         <div class="form-group row">
             <div class="col-md-4">
@@ -99,8 +99,8 @@
             <div class="col-8 col-sm-4 col-lg-3">
                 <label for="arrival_date" class="control-label">Arrival Date & Time:</label>
                 <input type="datetime-local" name="arrival_date" wire:model.lazy="arrival_date" id="arrival_date" required
-                       class="form-control mt-2">
-                <small>Enter  date of arrival and time</small><br>
+                       class="form-control mt-2" >
+                <small>Enter  date of arrival and time{{$arrival_date}}</small><br>
                 @error('arrival_date') <span class="error">{{ $message }}</span> @enderror<br>
             </div>
             <div class="col-md-4">
@@ -142,6 +142,7 @@
 
         </div>
         @error('bags') <span class="error">{{ $message }}</span> @enderror<br>
+
         <div class="form-group row">
 
 
@@ -178,9 +179,9 @@
             </div>
 
         </div>
-
         <button type="submit" class="btn btn-primary mt-3">Create Trip</button>
 
     </form>
 
 </div>
+
