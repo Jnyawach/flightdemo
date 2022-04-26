@@ -28,6 +28,7 @@ class FlighFilter extends Component
     public $sort= 'asc';
     public $foo;
     public $flight=NULL;
+    public $visible=false;
 
     protected $queryString = [
         'foo',
@@ -100,26 +101,33 @@ class FlighFilter extends Component
     }
     public function updatingAirline(){
         $this->resetPage();
+        $this->visible=true;
 
     }
     public function updatingCharge(){
         $this->resetPage();
+        $this->visible=true;
 
-
-
+    }
+    public function updatingDeparture(){
+        $this->resetPage();
+        $this->visible=true;
 
     }
     public function updatingCancel(){
         $this->resetPage();
+        $this->visible=true;
 
 
     }
     public function updatingStop(){
         $this->resetPage();
+        $this->visible=true;
 
     }
     public function updatingLevel(){
         $this->resetPage();
+        $this->visible=true;
 
     }
 
@@ -128,5 +136,9 @@ class FlighFilter extends Component
     {
 
         return 'vendor.livewire.live';
+    }
+
+    public function clearForm(){
+        $this->reset();
     }
 }

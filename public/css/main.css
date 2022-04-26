@@ -279,3 +279,14 @@ hr{
     background-color: var(--junior)!important;
     border:1px solid var(--junior)
 }
+
+.destination h6{
+    color: red;
+    font-weight: 600 !important;
+    font-size: 24px;
+    font-style: italic;
+}
+
+.destination p{
+    color: black;
+}

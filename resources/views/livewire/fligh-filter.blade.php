@@ -86,7 +86,10 @@
 
                         </div>
                         <div class="col-sm-6 col-md-4 col-lg-2 align-self-end p-2">
-                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+                            @if ($visible)
+                            <button type="button" class="btn btn-primary" wire:click="clearForm"><i class="fa-solid fa-xmark"></i> Clear Search</button>
+                            @endif
+
                         </div>
 
                     </div>
@@ -223,7 +226,13 @@
 
 
                     @foreach ($journeys as $journey)
-                    <div class="flight mt-4 p-3" wire:click="showFlight({{ $journey->id }})">
+                    <div class="flight mt-4 p-3 @if ($flight)
+                    @if ($journey->id==$flight->id)
+                    flight-active
+                    @endif
+
+                    @endif" wire:click="showFlight({{ $journey->id }})" >
+
                     <div class="row">
                         <div class="col-5">
                             <h5 class="fs-6 fw-bold">{{\Carbon\Carbon::parse($journey->departure)->format('g:i A')}}-{{\Carbon\Carbon::parse($journey->arrival)->format('g:i A')}}</h5>
@@ -315,6 +324,19 @@
                     </div>
                 </div>
             </div>
+            @else
+            <div class="col-md-4 col-lg-3">
+                <div class="card rounded-3 destination" style="width: 18rem;" >
+                    <img src="{{asset('images/wilderness.jpg')}}" class="card-img-top" alt="Magical Kenya">
+                    <div class="card-body">
+                      <h6 class="card-title">#Wilderness in the City Experience</h6>
+                      <p class="card-text fs-5">Enjoy an eco-safari experience under canvas right in
+                          the capital city, at the Nairobi National Park, Kenya’s oldest park
+                          </p>
+                      <a href="#" class="btn btn-link fs-5 text-decoration-none fw-bold" style="color: red">Find out more <i class="fa-solid fa-arrow-right-long ms-3"></i></a>
+                    </div>
+                  </div>
+                </div>
             @endif
 
         </div>
