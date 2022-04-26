@@ -245,6 +245,10 @@ hr{
 .flight-active{
     background-color: var(--teal);
 }
+.flight:hover{
+    background-color: var(--teal);
+    cursor: pointer;
+}
 .display-none{
     display: none ;
 }

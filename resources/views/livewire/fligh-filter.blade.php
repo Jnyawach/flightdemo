@@ -145,7 +145,7 @@
                                             </label>
                                         </div>
                                     </td>
-                                        <td class="text-end"><label>$ {{$stop->journeys->min('price')}}</label></td>
+                                        <td class="text-end"><label>$ {{$airline->journeys->min('price')}}</label></td>
                                     </tr>
                                     @endforeach
 
@@ -218,12 +218,15 @@
                     </div>
                 </div>
             </div>
+            @if ($journeys->count()>0)
+
+
 
                     @foreach ($journeys as $journey)
-                    <div class="flight mt-4 p-3">
+                    <div class="flight mt-4 p-3" wire:click="showFlight({{ $journey->id }})">
                     <div class="row">
                         <div class="col-5">
-                            <h5 class="fs-6 fw-bold">4:00pm-6:00pm</h5>
+                            <h5 class="fs-6 fw-bold">{{\Carbon\Carbon::parse($journey->departure)->format('g:i A')}}-{{\Carbon\Carbon::parse($journey->arrival)->format('g:i A')}}</h5>
                             <p class="p-0 m-0">{{$journey->from->location}} ({{$journey->from->abbreviation}})-{{$journey->to->location}} ({{$journey->to->abbreviation}})</p>
                             <div class="mt-2">
                                 <img src="{{asset($journey->airline->getFirstMediaUrl('logo')
@@ -244,31 +247,18 @@
                     </div>
                 </div>
                     @endforeach
+                    @else
+                    <section class="text-center p-5">
+                        <img src="{{asset('images/Sad-face.png')}}" class="img-fluid mt-5" style="width: 80px">
+                        <h5 class="mt-3">Sorry! We could not find the flight you are looking for</h5>
+                    </section>
+                    @endif
 
 
-                <div class="flight mt-4 flight-active p-3">
-                    <div class="row">
-                        <div class="col-6">
-                            <h5 class="fs-6 fw-bold">4:00pm-6:00pm</h5>
-                            <p class="p-0 m-0">Nairobi(NBO)-Mombasa(MBA)</p>
-                            <div class="mt-2">
-                                <img src="images/kenya-airways-logo.png" class="img-fluid float-start me-2"
-                                    style="width:20px">
-                                <p class="">Kenya Airways</p>
-                            </div>
-                        </div>
-                        <div class="col-2 align-self-center">
-                            <p class="fs-6">1h 0m (Nonstop)</p>
-                        </div>
-                        <div class="col-4 align-self-center text-end">
-                            <p class="p-0 m-0">1 left at</p>
-                            <h3>$117</h3>
-                            <p class="p-0 m-0 fs-6">Rountrip per Traveler</p>
-                        </div>
-                    </div>
-                 </div>
+
 
             </div>
+            @if ($flight)
             <div class="col-md-4 col-lg-3">
                 <div class="card mt-5">
                     <div class="card-body">
@@ -277,35 +267,42 @@
                                 <i class="fa-solid fa-xmark"></i>
                             </button>
                         </div>
-                        <p>4:00pm-6:00pm (Nonstop)</p>
+                        <p>{{\Carbon\Carbon::parse($flight->departure)->format('g:i A')}}-{{\Carbon\Carbon::parse($flight->arrival)->format('g:i A')}} ({{$flight->stop->name}})</p>
                         <div class="mt-2">
-                            <img src="images/kenya-airways-logo.png" class="img-fluid float-start me-2"
-                                style="width:40px">
-                            <h5 class="fs-6 align-self-center">Kenya Airways</h5>
+                            <img src="{{asset($flight->airline->getFirstMediaUrl('logo')
+                                        ?$flight->airline->getFirstMediaUrl('logo','logo-icon'):'company-icon.jpg')}}"
+                                                 alt="{{$flight->airline->name}}" style="width: 40px" class="float-start me-2">
+                            <h5 class="fs-6 align-self-center">{{$flight->airline->name}}({{$flight->from->abbreviation}})</h5>
                         </div>
                         <div class="mt-4">
                         <button class="btn btn-link text-decoration-none fw-bold fs-6" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                  Show details <i class="fa-solid fa-angle-down ms-2"></i>
                         </button>
                         <div class="collapse small-details" id="collapseExample">
-                           <h5 class="fs-6 fw-bold"> <i class="fa-solid fa-plane-departure"></i> 5:00pm-Nairobi</h6>
-                            <small>Jomo Kenyatta International Airport</small> <br>
-                            <small>1hour flight</small> <br>
-                            <small>Kenya Airways 610</small><br>
-                            <small>Boeng 737-8000</small><br>
-                            <small>Economy/Coach(V)</small>
-                            <h5 class="fs-6 fw-bold"> <i class="fa-solid fa-plane-arrival"></i> 6:00pm-Mombasa</h6>
-                                <small>Mombasa Intl(MBA)</small>
+                           <h5 class="fs-6 fw-bold"> <i class="fa-solid fa-plane-departure"></i> {{\Carbon\Carbon::parse($flight->departure)->format('g:i A')}}-{{$flight->from->location}}</h6>
+                            <small>{{$flight->from->name}}</small> <br>
+                            <small>{{\Carbon\Carbon::parse($flight->departure)->diffInHours(\Carbon\Carbon::parse($flight->arrival))}}hrs flight</small> <br>
+                            <small>{{$flight->airline->name}}</small><br>
+                            <small>{{$flight->plane->name}}</small><br>
+                            <small>{{$flight->level->name}}</small>
+                            <h5 class="fs-6 fw-bold"> <i class="fa-solid fa-plane-arrival"></i> {{\Carbon\Carbon::parse($flight->arrival)->format('g:i A')}}-{{$flight->to->location}}</h6>
+                                <small>{{$flight->to->name}}({{$flight->to->abbreviation}})</small>
                         </div>
                         <div class="card card-body mt-3">
-                            <h2 class="fw-bold">$ 117</h2>
-                            <p class="p-0 m-0">Roundtrip for 1 traveler</p>
-                            <p class="fs-6 fw-bold">Cabin: <span>Economy</span></p>
+                            <h2 class="fw-bold">$. {{$flight->price *$traveler/$trip}}</h2>
+                            <p class="p-0 m-0">Roundtrip for {{$traveler}} traveler</p>
+                            <p class="fs-6 fw-bold">Cabin: <span>{{$flight->level->name}}</span></p>
+                            @if ($flight->bags()->count()>0)
                             <h6>Bags</h6>
                             <ul class="list-unstyled">
-                                <li><i class="fa-solid fa-check"></i> Carry-on bag included</li>
-                                <li><i class="fa-solid fa-check"></i> First checked bag included</li>
+                                @foreach ($flight->bags as $bag)
+                                <li><i class="fa-solid fa-check"></i> {{$bag->name}}</li>
+
+                                @endforeach
+
                             </ul>
+                            @endif
+
 
                             <button type="button" class="btn btn-primary">
                                 Book
@@ -318,6 +315,8 @@
                     </div>
                 </div>
             </div>
+            @endif
+
         </div>
     </section>
     <section class="text-center p-5">

@@ -14,8 +14,8 @@ use Livewire\Component;
 class FlighFilter extends Component
 {   use WithPagination;
 
-    public $trip;
-    public $traveler;
+    public $trip=1;
+    public $traveler=1;
     public $level;
     public $airline;
     public $departure;
@@ -25,8 +25,9 @@ class FlighFilter extends Component
     public $stop;
     public $cancel;
     public $charge;
-    public $sort;
+    public $sort= 'asc';
     public $foo;
+    public $flight=NULL;
 
     protected $queryString = [
         'foo',
@@ -38,6 +39,8 @@ class FlighFilter extends Component
         'charge' => ['except' => ''],
         'airline' => ['except' => ''],
         'page' => ['except' => 1],
+        'start'=>['except'=>''],
+        'sort'=>['except'=>''],
     ];
 
 
@@ -51,6 +54,19 @@ class FlighFilter extends Component
         $journeys=Journey::when($this->level,function ($query){
             return $query->where('level_id',$this->level);
          })
+         ->when($this->departure,function ($query){
+            return $query->where('from_id',$this->departure);
+         })
+         ->when($this->sort,function ($query){
+            return $query->orderBy('price', $this->sort);
+         })
+         ->when($this->destination,function ($query){
+            return $query->where('to_id',$this->destination);
+         })
+         ->when($this->start,function ($query){
+            return $query->where('departure','>=',$this->start);
+         })
+
          ->when($this->cancel,function ($query){
             return $query->where('cancellation_fee',NULL);
          })
@@ -76,6 +92,11 @@ class FlighFilter extends Component
 
 
         ]);
+    }
+
+    public function showFlight($id){
+        $this->flight=Journey::findOrFail($id);
+
     }
     public function updatingAirline(){
         $this->resetPage();

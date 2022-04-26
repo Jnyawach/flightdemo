@@ -27,6 +27,11 @@ class Journey extends Model
         return $this->belongsTo(Airline::class);
     }
 
+    public function level(){
+        return $this->belongsTo(Level::class);
+
+    }
+
     public function stop(){
         return $this->belongsTo(Stop::class);
     }
